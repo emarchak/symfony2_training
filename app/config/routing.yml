@@ -1,0 +1,4 @@
+sensio_training:
+    resource: "@SensioTrainingBundle/Resources/config/routing.yml"
+    prefix:   /training
+

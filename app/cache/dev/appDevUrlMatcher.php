@@ -206,6 +206,35 @@ class appDevUrlMatcher extends Symfony\Bundle\FrameworkBundle\Routing\Redirectab
 
         }
 
+        if (0 === strpos($pathinfo, '/training')) {
+            // sensio_training_homepage
+            if (0 === strpos($pathinfo, '/training/hello') && preg_match('#^/training/hello/(?P<name>[^/]++)$#s', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'sensio_training_homepage')), array (  '_controller' => 'Sensio\\Bundle\\TrainingBundle\\Controller\\DefaultController::indexAction',));
+            }
+
+            if (0 === strpos($pathinfo, '/training/c')) {
+                if (0 === strpos($pathinfo, '/training/color')) {
+                    // training_color_set
+                    if (preg_match('#^/training/color/(?P<color>[^/]++)$#s', $pathinfo, $matches)) {
+                        return $this->mergeDefaults(array_replace($matches, array('_route' => 'training_color_set')), array (  '_controller' => 'Sensio\\Bundle\\TrainingBundle\\Controller\\ColorController::setColorAction',));
+                    }
+
+                    // training_color
+                    if ($pathinfo === '/training/color') {
+                        return array (  '_controller' => 'Sensio\\Bundle\\TrainingBundle\\Controller\\ColorController::showColorAction',  '_route' => 'training_color',);
+                    }
+
+                }
+
+                // training_converter
+                if (0 === strpos($pathinfo, '/training/celsius') && preg_match('#^/training/celsius/(?P<celsius>\\d+)/fahrenheit\\.(?P<_format>xml|json)$#s', $pathinfo, $matches)) {
+                    return $this->mergeDefaults(array_replace($matches, array('_route' => 'training_converter')), array (  '_controller' => 'Sensio\\Bundle\\TrainingBundle\\Controller\\ConverterController::celsiusAction',));
+                }
+
+            }
+
+        }
+
         throw 0 < count($allow) ? new MethodNotAllowedException(array_unique($allow)) : new ResourceNotFoundException();
     }
 }

@@ -1,0 +1,18 @@
+sensio_training_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: SensioTrainingBundle:Default:index }
+
+training_color_set:
+    pattern: /color/{color}
+    defaults: { _controller: SensioTrainingBundle:Color:setColor }
+
+training_color:
+    pattern: /color
+    defaults: { _controller: SensioTrainingBundle:Color:showColor }
+
+training_converter:
+    pattern: celsius/{celsius}/fahrenheit.{_format}
+    defaults: { _controller: SensioTrainingBundle:Converter:celsius }
+    requirements:
+        _format: xml|json
+        celsius: \d+

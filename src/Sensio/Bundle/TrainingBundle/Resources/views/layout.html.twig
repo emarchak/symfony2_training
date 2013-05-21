@@ -1,0 +1,13 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+  {{ parent() }}
+  <link rel="stylesheet" type="text/css" href="{{ asset('bundles/sensiotraining/css/layout.css') }}" />
+{% endblock stylesheets %}
+{% block body %}
+  <h1>My sweet Symfony2 Site</h1>
+  {{ include('SensioTrainingBundle::nav.html.twig', { 'menu_id' : 'top'}) }}
+  {% block content %}
+  {% endblock %}
+  {{ include('SensioTrainingBundle::nav.html.twig', {menu_id : 'bottom'}) }}
+  {{ render(controller('SensioTrainingBundle:Default:getVisitorsOnline')) }}
+{% endblock body %}
